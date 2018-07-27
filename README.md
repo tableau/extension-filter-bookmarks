@@ -3,7 +3,7 @@ This extension enables you to add a button directly into your dashboard that res
 
 ## Installing the Extension
 
-Download the Revert Filters [manifest file](https://tableau.github.io/extension-filter-bookmarks/FilterBookmarks.trex). 
+Download the Filter Bookmarks [manifest file](https://tableau.github.io/extension-filter-bookmarks/FilterBookmarks.trex). 
 
 # Using the Extension
 1. Set your dashboard filters they way you want to be able to revert to.
