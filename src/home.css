@@ -27,16 +27,14 @@ body {
 
 .box {
     background: #ffffff;
-    /* border-radius: 20px; */
-    width: 1000px;
-    /* height: 800px; */
+    max-width: 1250px;
     margin: 20px;
     display: flex;
     box-shadow: 2px 4px 8px rgba(102, 162, 222, 0.15);
 }
 
 .left {
-    background: linear-gradient(to bottom left, #02B3A4, #66A2DE);
+    background: linear-gradient(to bottom left, #5496FF, #8739E6);
     padding: 40px;
     width: 450px;
     color: #ffffff;
@@ -72,7 +70,7 @@ body {
 }
 
 a {
-    color: #02B3A4;
+    color: #8739E6;
     font-weight: bold;
     font-size: 18px;
 }
