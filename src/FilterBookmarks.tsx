@@ -71,7 +71,7 @@ class FilterBookmarks extends React.Component<any, State> {
     public configure() {
         const popupUrl = (window.location.origin.includes('localhost')) ? `${window.location.origin}/#/config` : `${window.location.origin}/extension-filter-bookmarks/#/config`;
         const payload = '';
-        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 385, width: 285 }).then(() => {
+        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 385, width: 295 }).then(() => {
             // console.log('Configure closed.');
             // console.log(window.tableau.extensions.settings.getAll());
         }).catch((error: any) => {

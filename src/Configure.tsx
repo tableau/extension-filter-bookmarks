@@ -234,10 +234,25 @@ class Configure extends React.Component<any, State> {
                     </div>
                     <div className='title'>Formatting</div>
                     <div className='formatting'>
-                        <p className='color'>Background Color <input type='color' defaultValue={this.state.bg} onChange={this.sbgChange} style={{backgroundColor: this.state.bg}}/></p>
-                        <p className='color'>Button Color <input type='color' defaultValue={this.state.button} onChange={this.sbuttonChange} style={{backgroundColor: this.state.button}}/></p>
-                        <p className='color'>Button Text Color <input type='color' defaultValue={this.state.text} onChange={this.stextChange} style={{backgroundColor: this.state.text}}/></p>
-                    </div>
+                        <div className='format'>
+                            <div className='ftext'>Background Color</div>
+                            <div>
+                            <input type='color' defaultValue={this.state.bg} onChange={this.sbgChange} style={{backgroundColor: this.state.bg}}/>
+                            </div>
+                        </div>
+                        <div className='format'>
+                            <div className='ftext'>Button Color</div>
+                            <div>
+                            <input type='color' defaultValue={this.state.button} onChange={this.sbuttonChange} style={{backgroundColor: this.state.button}}/>
+                            </div>
+                        </div>
+                        <div className='format'>
+                            <div className='ftext'>Button Text Color</div>
+                            <div>
+                            <input type='color' defaultValue={this.state.text} onChange={this.stextChange} style={{backgroundColor: this.state.text}}/>
+                            </div>
+                        </div>
+                    </div>>
                 </div>
             </div>
             <div className='footer'>
