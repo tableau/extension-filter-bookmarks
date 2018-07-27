@@ -220,7 +220,6 @@ class Configure extends React.Component<any, State> {
                                 <li>Optional: Customize your buttons label and colors.</li>
                                 <li>Note: You can add as many instances of this extension as you like!</li>
                             </ol>
-                            <p>Note: You can add as many instances of this extension as you like!</p>
                         </span>
                     </div>
                 </div>
