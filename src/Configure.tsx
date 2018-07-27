@@ -217,9 +217,9 @@ class Configure extends React.Component<any, State> {
                             <ol>
                                 <li>Set your dashboard filters they way you want to be able to revert to.</li>
                                 <li>Open the configuration window and click "Save Settings".</li>
-                                <li>Optional: Customize your buttons label and colors.</li>
-                                <li>Note: You can add as many instances of this extension as you like!</li>
                             </ol>
+                            <p>Optional: Customize your buttons label and colors.</p>
+                            <p>Note: You can add as many instances of this extension as you like!</p>
                         </span>
                     </div>
                 </div>
