@@ -252,7 +252,7 @@ class Configure extends React.Component<any, State> {
                             <input type='color' defaultValue={this.state.text} onChange={this.stextChange} style={{backgroundColor: this.state.text}}/>
                             </div>
                         </div>
-                    </div>>
+                    </div>
                 </div>
             </div>
             <div className='footer'>
