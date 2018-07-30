@@ -8,7 +8,7 @@ class Home extends React.Component<any, any> {
 				<div className='icontainer'>
 					<div className='box'>
 						<div className='left'>
-							<h1 className='iheader'>Filter Bookmarks Extension</h1>
+							<h1 className='iheader'>Filter Bookmarks</h1>
 							<span className='tagline'>Instantly revert your dashboards to predefined filter settings.</span>
 						</div>
 						<div className='right'>
