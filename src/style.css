@@ -204,3 +204,15 @@ input[type="color"]:focus {
 .tooltiptext li {
     margin-top: 8px;
 }
+
+.label-text-field {
+    flex: 1;
+    margin-left: 0;
+    width: 100%;
+}
+
+.label-text-field > input {
+    font-family: 'Benton Sans';
+    margin-bottom: 5px;
+    margin-top: 3px;
+}

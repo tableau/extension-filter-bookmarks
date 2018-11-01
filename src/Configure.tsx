@@ -41,10 +41,9 @@ class Configure extends React.Component<any, State> {
     }
 
     // Handles change in label input
-    public labelChange(text: string) {
-        this.setState({
-            label: text,
-        });
+    public labelChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const text: string = e.target.value;
+        this.setState({ label: text });
         window.tableau.extensions.settings.set('label', text);
         window.tableau.extensions.settings.saveAsync();
     }
@@ -190,7 +189,6 @@ class Configure extends React.Component<any, State> {
         }
     }
 
-    public slabelChange: (value: any) => void = value => this.labelChange(value);
     public sbgChange: (value: any) => void = value => this.bgChange(value);
     public sbuttonChange: (value: any) => void = value => this.buttonChange(value);
     public stextChange: (value: any) => void = value => this.textChange(value);
@@ -222,7 +220,7 @@ class Configure extends React.Component<any, State> {
                 <div>
                     <div className='title'>Button Settings</div>
                     <div className='config'>
-                        <TextField children={this.state.label} label='Label' onChange={this.slabelChange} />
+                        <TextField className='label-text-field' kind='line' label='Label' onChange={this.labelChange} value={this.state.label} />
                         <p>Click <b>Save Settings</b> to save current filters.</p>
                         <div className='set'>
                             <Button onClick={this.showSaved}>Save Settings</Button>
