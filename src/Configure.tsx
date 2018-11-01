@@ -1,10 +1,6 @@
 import * as React from 'react';
 
-import {
-    ButtonType,
-    ButtonWidget,
-    LineTextFieldWidget,
-} from '@tableau/widgets';
+import { Button, TextField } from '@tableau/tableau-ui';
 
 declare global {
     interface Window { tableau: any; }
@@ -226,10 +222,12 @@ class Configure extends React.Component<any, State> {
                 <div>
                     <div className='title'>Button Settings</div>
                     <div className='config'>
-                        <LineTextFieldWidget text={this.state.label} handleChange={this.slabelChange} testId='label' floatingLabel='Label'/>
+                        <TextField children={this.state.label} label='Label' onChange={this.slabelChange} />
                         <p>Click <b>Save Settings</b> to save current filters.</p>
-                        <div className='set'><ButtonWidget buttonType={ButtonType.Outline} handleClick={this.showSaved} testId='set-filters'>Save Settings</ButtonWidget><span className={this.state.saved ? 'saved show' : 'saved'}>Settings saved!</span></div>
-                        
+                        <div className='set'>
+                            <Button onClick={this.showSaved}>Save Settings</Button>
+                            <span className={this.state.saved ? 'saved show' : 'saved'}>Settings saved!</span>
+                        </div>
                     </div>
                     <div className='title'>Formatting</div>
                     <div className='formatting'>
@@ -256,7 +254,7 @@ class Configure extends React.Component<any, State> {
             </div>
             <div className='footer'>
                 <div className='btncluster'>
-                <ButtonWidget buttonType={ButtonType.Go} handleClick={this.submit} testId='ok' style={{marginLeft: '12px'}}>OK</ButtonWidget>
+                    <Button kind='filledGreen' onClick={this.submit} style={{ marginLeft: '12px' }}>OK</Button>
                 </div>
             </div>
         </div>

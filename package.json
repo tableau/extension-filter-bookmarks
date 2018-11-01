@@ -4,7 +4,7 @@
     "private": true,
     "homepage": "https://tableau.github.io/extension-filter-bookmarks/#/",
     "dependencies": {
-        "@tableau/widgets": "^6.2.1",
+        "@tableau/tableau-ui": "^2.0.0",
         "@types/react-router-dom": "^4.2.7",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",

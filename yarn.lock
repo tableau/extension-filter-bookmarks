@@ -16,13 +16,11 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@tableau/widgets@^6.2.1":
-  version "6.2.1"
-  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/@tableau/widgets/-/@tableau/widgets-6.2.1.tgz#573f08f0b2999985aecf2310dc780b8f4806f589"
+"@tableau/tableau-ui@^2.0.0":
+  version "2.0.0"
+  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/@tableau/tableau-ui/-/tableau-ui-2.0.0.tgz#c423c2b8eb3013260048e1d053e413ffeabc3e1a"
   dependencies:
-    lodash "4.16.4"
-    tabbable "1.0.4"
-    tslib "^1.8.1"
+    typestyle "^2.0.1"
 
 "@types/history@*":
   version "4.6.2"
@@ -1879,6 +1877,10 @@ csstype@^2.2.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.5.tgz#4125484a3d42189a863943f23b9e4b80fedfa106"
 
+csstype@^2.4.0:
+  version "2.5.7"
+  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/csstype/-/csstype-2.5.7.tgz#bf9235d5872141eccfb2d16d82993c6b149179ff"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -2765,6 +2767,10 @@ fragment-cache@^0.2.1:
   resolved "https://registry.yarnpkg.com/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
   dependencies:
     map-cache "^0.2.2"
+
+free-style@2.5.1:
+  version "2.5.1"
+  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/free-style/-/free-style-2.5.1.tgz#5e3f684c470d3bba7e4dbb43524e0a08917e873c"
 
 fresh@0.5.2:
   version "0.5.2"
@@ -4296,10 +4302,6 @@ lodash.templatesettings@^4.0.0:
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
-
-lodash@4.16.4:
-  version "4.16.4"
-  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
 
 "lodash@>=3.5 <5", lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.10"
@@ -6663,10 +6665,6 @@ symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
 
-tabbable@1.0.4:
-  version "1.0.4"
-  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/tabbable/-/tabbable-1.0.4.tgz#70b07e052a05584fb17aa9f1808f51af3ae8d63d"
-
 tapable@^0.2.7:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.8.tgz#99372a5c999bf2df160afc0d74bed4f47948cd22"
@@ -6918,6 +6916,13 @@ typedarray@^0.0.6:
 typescript@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+
+typestyle@^2.0.1:
+  version "2.0.1"
+  resolved "https://artifactory.prod.tableautools.com/artifactory/api/npm/tab-npm/typestyle/-/typestyle-2.0.1.tgz#9593e6029ce5f23f1a5728ddd3ed6bf1ffa781f8"
+  dependencies:
+    csstype "^2.4.0"
+    free-style "2.5.1"
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
