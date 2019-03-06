@@ -1,17 +1,10 @@
-@font-face {
-    font-family: 'Benton Sans Light';
-    src: url(./fonts/BentonSans-Light.woff);
-    font-style: normal;
-    font-weight: 100;
-}
-
 html,
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    font-family: 'Benton Sans', 'Segoe UI Light', sans-serif;
+    font-family: 'Benton Sans', Arial, Helvetica, sans-serif;
     border: 0;
 }
 

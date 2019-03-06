@@ -69,10 +69,10 @@ class FilterBookmarks extends React.Component<any, State> {
                             } else {
                                 filterOptions = { min: filter.min, max: filter.max };
                             }
-                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions);
+                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions).catch(console.log);
                             break;
                         case 'categorical':
-                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode });
+                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode }).catch(console.log);
                             break;
                         default:
                             continue;
