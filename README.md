@@ -13,7 +13,7 @@ Note: You can add as many instances of this extension as you like!
 
 ## How to install for local use
 Make sure you have [Node.js](https://nodejs.org) and [Yarn](https://yarnpkg.com) isntalled. 
-Clone or download and unzip this repository. Open the command line to the `extension-data-driven-parameters-master` folder and run:
+Clone or download and unzip this repository. Open the command line to the `extension-filter-bookmarks-master` folder and run:
 
 `yarn` to install
 
