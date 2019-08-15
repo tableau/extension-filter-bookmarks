@@ -18,7 +18,7 @@ Note: You can add as many instances of this extension as you like!
 ```
 "homepage": "http://localhost:8080",
 ```
-4. In the command line run `yarn build` to build the extension with the new homepage.
+4. In the command line run `yarn build` to build the extension with the new homepage. _Note, you can update the `package.json` file to just run `react-scripts build`, the rest is just to move the folders around. If you do this, look for the `build` folder in the next step._
 5. Copy the files in `docs` to your web server at the path you specified in Step 3.
 
 ## Support
