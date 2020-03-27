@@ -30,9 +30,6 @@ interface State {
     text: string,
 }
 
-// Switches base URL based on where extension is being hosted
-const baseURL: string = window.location.origin.includes('localhost:3000') ? window.location.origin : '.';
-
 function hexToRgb(hex: string) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -103,7 +100,7 @@ class FilterBookmarks extends React.Component<any, State> {
 
     // Pops open the configure page
     public configure() {
-        const popupUrl = `${baseURL}/config.html`;
+        const popupUrl = `${window.location.origin}${process.env.PUBLIC_URL}/config.html`;
         const payload = '';
         window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 520, width: 295 }).catch((error: any) => {
             switch (error.errorCode) {
