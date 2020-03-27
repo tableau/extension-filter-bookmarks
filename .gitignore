@@ -11,6 +11,7 @@
 
 # production
 /build
+/sandboxed/build
 
 # misc
 .DS_Store

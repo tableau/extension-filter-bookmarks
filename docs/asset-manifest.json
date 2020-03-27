@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/extension-filter-bookmarks/static/css/main.f6a732a0.chunk.css",
-    "main.js": "/extension-filter-bookmarks/static/js/main.8ab49d95.chunk.js",
-    "main.js.map": "/extension-filter-bookmarks/static/js/main.8ab49d95.chunk.js.map",
+    "main.css": "/extension-filter-bookmarks/static/css/main.2a445f43.chunk.css",
+    "main.js": "/extension-filter-bookmarks/static/js/main.e0764aa0.chunk.js",
+    "main.js.map": "/extension-filter-bookmarks/static/js/main.e0764aa0.chunk.js.map",
     "runtime~main.js": "/extension-filter-bookmarks/static/js/runtime~main.2daab69c.js",
     "runtime~main.js.map": "/extension-filter-bookmarks/static/js/runtime~main.2daab69c.js.map",
-    "static/js/2.c4b55b37.chunk.js": "/extension-filter-bookmarks/static/js/2.c4b55b37.chunk.js",
-    "static/js/2.c4b55b37.chunk.js.map": "/extension-filter-bookmarks/static/js/2.c4b55b37.chunk.js.map",
+    "static/js/2.ddbe77fe.chunk.js": "/extension-filter-bookmarks/static/js/2.ddbe77fe.chunk.js",
+    "static/js/2.ddbe77fe.chunk.js.map": "/extension-filter-bookmarks/static/js/2.ddbe77fe.chunk.js.map",
     "index.html": "/extension-filter-bookmarks/index.html",
-    "precache-manifest.2831593337ee86c002133a8dfa00dd75.js": "/extension-filter-bookmarks/precache-manifest.2831593337ee86c002133a8dfa00dd75.js",
+    "precache-manifest.e064ac2ac5af51c90a57d12a193c257c.js": "/extension-filter-bookmarks/precache-manifest.e064ac2ac5af51c90a57d12a193c257c.js",
     "service-worker.js": "/extension-filter-bookmarks/service-worker.js",
-    "static/css/main.f6a732a0.chunk.css.map": "/extension-filter-bookmarks/static/css/main.f6a732a0.chunk.css.map"
+    "static/css/main.2a445f43.chunk.css.map": "/extension-filter-bookmarks/static/css/main.2a445f43.chunk.css.map"
   }
 }
