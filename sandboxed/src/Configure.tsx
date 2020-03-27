@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Checkbox, TextField } from '@tableau/tableau-ui';
+import { Button, Checkbox, TextField, DropdownSelect } from '@tableau/tableau-ui';
 
 /* tslint:disable:no-console */
 
@@ -8,15 +8,21 @@ declare global {
     interface Window { tableau: any; }
 }
 
-let dashboard: any;
+interface Image {
+	name: string;
+    ext: string;
+    data: string;
+}
 
 interface State {
     bg: string,
     button: string,
     clear: boolean,
     filters: any,
+    image: Image,
     label: string,
     saved: boolean,
+    style: string,
     text: string,
 }
 
@@ -27,8 +33,10 @@ class Configure extends React.Component<any, State> {
         button: '#000000',
         clear: false,
         filters: [],
+        image: {name: '', ext:'', data: ''},
         label: 'Revert Filters',
         saved: false,
+        style: 'text',
         text: '#000000',
     };
 
@@ -42,6 +50,65 @@ class Configure extends React.Component<any, State> {
         }
         catch (error) {
             console.log(error);
+        }
+    }
+
+    // Handles change in style input
+    public styleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+        const style: string = e.target.value;
+        this.setState({ style });
+        try {
+            window.tableau.extensions.settings.set('style', style);
+            window.tableau.extensions.settings.saveAsync();
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Display the selected image and save file data
+    public setImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        let file;
+        // Get the image from the file input
+        if (e.target.files) {
+            file = e.target.files[0];
+        }
+
+        if (file) {
+            // Regex to get file extension and name
+            const re = /(?:\.([^.]+))?$/;
+            const ext = re.exec(file.name)![1];
+            const name = file.name.slice(0, -ext.length);
+
+            // Check if file is an image
+            const accepted = ['image/gif', 'image/jpeg', 'image/png'];
+            const valid = file && accepted.includes(file.type);
+            if (valid) {
+                // Create a new FileReader so we can read the contents of the image
+                const reader = new FileReader();
+
+                // Update the image data
+                reader.addEventListener('load', () => {
+                    if (reader.result) {
+                        const data = (reader.result as string).substring((reader.result as string).search(',') + 1);
+                        const image = {
+                            name,
+                            ext,
+                            data,
+                        };
+                        this.setState({ image });
+                        window.tableau.extensions.settings.set('image', JSON.stringify(image));
+                        window.tableau.extensions.settings.saveAsync();
+                    }
+                }, false);
+
+                // If an image was selected load the file into the FileReader
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                alert('The selected file is not a .gif, .jpg, .jpeg, or .png');
+            }
         }
     }
 
@@ -78,6 +145,7 @@ class Configure extends React.Component<any, State> {
         console.log('getting filters')
         const filterFetchPromises: any[] = [];
         const dashboardfilters: any[] = [];
+        const dashboard = window.tableau.extensions.dashboardContent.dashboard;
         dashboard.worksheets.forEach((worksheet: any) => {
             filterFetchPromises.push(worksheet.getFiltersAsync());
         });
@@ -161,6 +229,8 @@ class Configure extends React.Component<any, State> {
     public submit = (): void => {
         const text = (this.state.label || 'Revert Filters');
         window.tableau.extensions.settings.set('label', text);
+        window.tableau.extensions.settings.set('style', this.state.style);
+        window.tableau.extensions.settings.set('image', JSON.stringify(this.state.image));
         window.tableau.extensions.settings.set('configured', 'true');
         window.tableau.extensions.settings.saveAsync().then(() => {
             window.tableau.extensions.ui.closeDialog('closed');
@@ -170,13 +240,14 @@ class Configure extends React.Component<any, State> {
     // Once we have mounted, we call to initialize
     public componentWillMount() {
         window.tableau.extensions.initializeDialogAsync().then(() => {
-            dashboard = window.tableau.extensions.dashboardContent.dashboard;
             const settings = window.tableau.extensions.settings.getAll();
             this.setState({
                 bg: settings.bg,
                 button: settings.button,
                 clear: settings.clear === 'true',
                 label: settings.label,
+                style: settings.style || 'text',
+                image: JSON.parse(settings.image || this.state.image),
                 text: settings.text,
             });
             if (settings.configured !== 'true') {
@@ -213,9 +284,26 @@ class Configure extends React.Component<any, State> {
                         <div>
                             <div className='title' style={{ marginTop: '18px' }}>Button Settings</div>
                             <div className='section'>
-                                <TextField className='label-text-field' kind='line' label='Label' onChange={this.labelChange} value={this.state.label} />
+                                <label className="label">Button Style</label>
+                                <DropdownSelect className='dropdown-select' kind='line' onChange={this.styleChange} onSelect={this.styleChange} value={this.state.style}>
+                                    <option value="image">Image button</option><option value="text">Text button</option>
+                                </DropdownSelect>
+
+                                <TextField className='label-text-field' style={{display: this.state.style === 'text' ? "inline-flex" : "none"}} kind='line' label='Label' onChange={this.labelChange} value={this.state.label} />
+
+                                <div className='inputBox' style={{display: this.state.style === 'image' ? "inline-flex" : "none"}}>
+                                    <span className='imgName ellipsis'>{this.state.image.name !== '' ? this.state.image.name : 'Choose an image...'}</span>
+
+                                    <span className='imgExt'>{this.state.image.ext !== '' ? this.state.image.ext : ''}</span>
+
+                                    <input className='imgInput' type='file' accept='.gif,.jpg,.jpeg,.png' id='imgInput' onChange={this.setImage} />
+
+                                    <label className='imgLabel' htmlFor='imgInput'>Choose</label>
+                                </div>
+
                                 {this.state.clear ?
                                     <p>Currently clearing all filters.</p> : <p>Click <b>Save Settings</b> to save current filters.</p>}
+
                                 <div className='set'>
                                     <Button onClick={this.getFilters} disabled={this.state.clear}>Save Settings</Button>
                                     <span className={this.state.saved ? 'saved show' : 'saved'}>Settings saved!</span>
@@ -234,13 +322,13 @@ class Configure extends React.Component<any, State> {
                                     </div>
                                 </div>
                                 <div className='format'>
-                                    <div className='ftext'>Button Color</div>
+                                    <div className='ftext'>Text Button Color</div>
                                     <div>
                                         <input type='color' value={this.state.button} onChange={this.buttonChange} style={{ backgroundColor: this.state.button }} />
                                     </div>
                                 </div>
                                 <div className='format'>
-                                    <div className='ftext'>Button Text Color</div>
+                                    <div className='ftext'>Text Button Text Color</div>
                                     <div>
                                         <input type='color' value={this.state.text} onChange={this.textChange} style={{ backgroundColor: this.state.text }} />
                                     </div>

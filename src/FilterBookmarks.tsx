@@ -6,7 +6,17 @@ declare global {
     interface Window { tableau: any; }
 }
 
-let dashboard: any;
+interface Image {
+	name: string;
+    ext: string;
+    data: string;
+}
+
+const defaultImage = {
+    name: 'default',
+    ext:'.png',
+    data: 'iVBORw0KGgoAAAANSUhEUgAAAD4AAAAaCAYAAADv/O9kAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5AMbFhQgjNJxJQAAAPFJREFUWIXtlC8LwlAUR3/+QWEDwTAwiYgIWzKsrwkW04LNYDLbBe1+BIPtZYtV+4JpYYgMk7Bg2kBBNK1NTd47eO98gXMP791bWIT7l59EkAlLM1CULRoA/CRCkXsILlS4bKhw2VDh/8fGqutgQCf8Cu2LlwyMTReibZNqs+D56tUWhOli3eyw6AHmHdf1HoQ5xLxO787BcavAargQZh9TQmsOwlNqcAh3v0xm+sgD/nWL5Y3Wyhoex0dMLicWN0/4PcTo7LGoU2jDnxE2wQE7Umk2hOEeZgGd7Rc5uuq0qHDZUOGyIW+4pRncM5BjaQbeyHkrIkfBCTEAAAAASUVORK5CYII='
+}
 
 interface State {
     bg: string,
@@ -14,7 +24,9 @@ interface State {
     clear: boolean,
     configured: boolean,
     filters: any[],
+    image: Image,
     label: string,
+    style: string,
     text: string,
 }
 
@@ -34,12 +46,15 @@ class FilterBookmarks extends React.Component<any, State> {
         clear: false,
         configured: false,
         filters: [],
+        image: {name: '', ext:'', data: ''},
         label: 'Revert Filters',
+        style: 'text',
         text: '#ffffff',
     };
 
     // Clears all filters on a dashboard
     public clearFilters() {
+        const dashboard = window.tableau.extensions.dashboardContent.dashboard;
         dashboard.worksheets.forEach((worksheet: any) => {
             worksheet.getFiltersAsync().then((filtersForWorksheet: any) => {
                 const filterClearPromises: any[] = [];
@@ -52,6 +67,7 @@ class FilterBookmarks extends React.Component<any, State> {
 
     // Apply the filters set in settings
     public applyFilters = (): void => {
+        const dashboard = window.tableau.extensions.dashboardContent.dashboard;
         const settings = window.tableau.extensions.settings.getAll();
         if (settings.clear === 'true') {
             this.clearFilters();
@@ -86,7 +102,7 @@ class FilterBookmarks extends React.Component<any, State> {
     public configure() {
         const popupUrl = `${window.location.origin}${process.env.PUBLIC_URL}/#/config`;
         const payload = '';
-        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 470, width: 295 }).catch((error: any) => {
+        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 520, width: 295 }).catch((error: any) => {
             switch (error.errorCode) {
                 case window.tableau.ErrorCodes.DialogClosedByUser:
                     console.log('Dialog was closed by user.');
@@ -105,6 +121,8 @@ class FilterBookmarks extends React.Component<any, State> {
             configured: settings.configured === 'true',
             filters: JSON.parse(settings.filters),
             label: settings.label,
+            style: settings.style || 'text',
+            image: JSON.parse(settings.image || defaultImage),
             text: settings.text,
         });
     }
@@ -115,7 +133,6 @@ class FilterBookmarks extends React.Component<any, State> {
             window.tableau.extensions.settings.addEventListener(window.tableau.TableauEventType.SettingsChanged, (settingsEvent: any) => {
                 this.updateSettings(settingsEvent.newSettings)
             });
-            dashboard = window.tableau.extensions.dashboardContent.dashboard;
             const settings = window.tableau.extensions.settings.getAll();
             if (settings.configured === 'true') {
                 this.updateSettings(window.tableau.extensions.settings.getAll())
@@ -124,6 +141,8 @@ class FilterBookmarks extends React.Component<any, State> {
                 window.tableau.extensions.settings.set('button', this.state.button);
                 window.tableau.extensions.settings.set('clear', this.state.clear);
                 window.tableau.extensions.settings.set('label', this.state.label);
+                window.tableau.extensions.settings.set('image', JSON.stringify(this.state.image));
+                window.tableau.extensions.settings.set('style', this.state.style);
                 window.tableau.extensions.settings.set('text', this.state.text);
                 window.tableau.extensions.settings.saveAsync().then(() => {
                     this.configure();
@@ -145,11 +164,16 @@ class FilterBookmarks extends React.Component<any, State> {
                 background-color: ${active} !important;
             }
         `
+
+        const textButton = <button className='button' onClick={this.applyFilters} style={{ backgroundColor: color, color: this.state.text }}>{this.state.label}</button>;
+
+        const imageButton = <img src={this.state.image.data !== '' ? `data:image/png;base64, ${this.state.image.data}` : `data:image/png;base64, ${defaultImage.data}`} style={{cursor: 'pointer', maxWidth: '100%', objectFit: 'contain'}} onClick={this.applyFilters} alt='Filter' />;
+
         return (
             <div className='outer' style={{ backgroundColor: this.state.bg }}>
                 <div className='inner'>
                     <style>{css}</style>
-                    <button className='button' onClick={this.applyFilters} style={{ backgroundColor: color, color: this.state.text }}>{this.state.label}</button>
+                    {this.state.style === "image" ? imageButton : textButton}
                 </div>
             </div>
         );
