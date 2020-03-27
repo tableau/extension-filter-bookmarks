@@ -100,7 +100,7 @@ class FilterBookmarks extends React.Component<any, State> {
 
     // Pops open the configure page
     public configure() {
-        const popupUrl = `${window.location.origin}${process.env.PUBLIC_URL}/config.html`;
+        const popupUrl = `${window.location.origin}${process.env.PUBLIC_URL}/#/config`;
         const payload = '';
         window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 520, width: 295 }).catch((error: any) => {
             switch (error.errorCode) {
