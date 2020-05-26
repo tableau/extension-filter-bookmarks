@@ -171,7 +171,7 @@ class FilterBookmarks extends React.Component<any, State> {
         const imageButton = <img src={this.state.image.data !== '' ? `data:image/png;base64, ${this.state.image.data}` : `data:image/png;base64, ${defaultImage.data}`} style={{cursor: 'pointer', maxWidth: '100%', objectFit: 'contain'}} onClick={this.applyFilters} alt='Filter' />;
 
         return (
-            <div className='outer' style={{ backgroundColor: this.state.bg }}>
+            <div className='outer' style={{ backgroundColor: this.state.bg, display: this.state.configured ? 'flex' : 'none' }}>
                 <div className='inner'>
                     <style>{css}</style>
                     {this.state.style === "image" ? imageButton : textButton}
