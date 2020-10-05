@@ -2,6 +2,7 @@
   "name": "filter-bookmarks",
   "version": "1.0.0",
   "private": true,
+  "//homepage": ".",
   "homepage": "https://tableau.github.io/extension-filter-bookmarks/#/",
   "dependencies": {
     "@tableau/tableau-ui": "^2.2.1",

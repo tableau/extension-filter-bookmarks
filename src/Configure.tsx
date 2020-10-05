@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Checkbox, TextField, DropdownSelect } from '@tableau/tableau-ui';
+import { Button, Checkbox, TextField, DropdownSelect, Pill } from '@tableau/tableau-ui';
 
 /* tslint:disable:no-console */
 
@@ -9,7 +9,7 @@ declare global {
 }
 
 interface Image {
-	name: string;
+    name: string;
     ext: string;
     data: string;
 }
@@ -24,6 +24,9 @@ interface State {
     saved: boolean,
     style: string,
     text: string,
+    useSelectedWS: boolean,
+    selectWSList: string[],
+    worksheets: any[]
 }
 
 // Container for all configurations
@@ -33,11 +36,14 @@ class Configure extends React.Component<any, State> {
         button: '#000000',
         clear: false,
         filters: [],
-        image: {name: '', ext:'', data: ''},
+        image: { name: '', ext: '', data: '' },
         label: 'Revert Filters',
         saved: false,
         style: 'text',
         text: '#000000',
+        useSelectedWS: false,
+        selectWSList: [],
+        worksheets: []
     };
 
     // Handles change in label input
@@ -140,6 +146,30 @@ class Configure extends React.Component<any, State> {
         window.tableau.extensions.settings.saveAsync();
     };
 
+    // Handles change in select worksheets checkbox
+    public useSelectedWSChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        this.setState({ useSelectedWS: e.target.checked });
+        window.tableau.extensions.settings.set('useSelectedWS', e.target.checked);
+        window.tableau.extensions.settings.saveAsync();
+    };
+
+
+    // Handles change in selected worksheets list
+    public updateWSSelection = (e: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+        const target = e.target as HTMLDivElement;
+        const selection = target.innerText;
+        const inList = this.state.selectWSList.includes(selection);
+        let newList = this.state.selectWSList
+        if (inList) {
+            newList = newList.filter(ws => ws !== selection);
+        } else {
+            newList.push(selection)
+        }
+        this.setState({ selectWSList: newList });
+        window.tableau.extensions.settings.set('selectWSList', JSON.stringify(newList));
+        window.tableau.extensions.settings.saveAsync();
+    };
+
     // Get all filters from all worksheets in dashboard
     public getFilters = (): void => {
         console.log('getting filters')
@@ -227,11 +257,14 @@ class Configure extends React.Component<any, State> {
 
     // Saves settings and closes configure dialog with data source payload
     public submit = (): void => {
+        const worksheets = window.tableau.extensions.dashboardContent.dashboard.worksheets;
+        const prunedList = this.state.selectWSList.filter(ws => worksheets.find((w: any) => w.name === ws) !== undefined)
         const text = (this.state.label || 'Revert Filters');
         window.tableau.extensions.settings.set('label', text);
         window.tableau.extensions.settings.set('style', this.state.style);
         window.tableau.extensions.settings.set('image', JSON.stringify(this.state.image));
         window.tableau.extensions.settings.set('configured', 'true');
+        window.tableau.extensions.settings.set('selectWSList', JSON.stringify(prunedList));
         window.tableau.extensions.settings.saveAsync().then(() => {
             window.tableau.extensions.ui.closeDialog('closed');
         });
@@ -250,6 +283,9 @@ class Configure extends React.Component<any, State> {
                 style: settings.style || 'text',
                 image,
                 text: settings.text,
+                useSelectedWS: settings.useSelectedWS === 'true',
+                selectWSList: (settings.selectWSList && JSON.parse(settings.selectWSList)) || [],
+                worksheets: window.tableau.extensions.dashboardContent.dashboard.worksheets
             });
             if (settings.configured !== 'true') {
                 this.getFilters();
@@ -258,6 +294,7 @@ class Configure extends React.Component<any, State> {
     }
 
     public render() {
+
         return (
             <React.Fragment>
                 <div className='container'>
@@ -290,9 +327,9 @@ class Configure extends React.Component<any, State> {
                                     <option value="image">Image button</option><option value="text">Text button</option>
                                 </DropdownSelect>
 
-                                <TextField className='label-text-field' style={{display: this.state.style === 'text' ? "inline-flex" : "none"}} kind='line' label='Label' onChange={this.labelChange} value={this.state.label} />
+                                <TextField className='label-text-field' style={{ display: this.state.style === 'text' ? "inline-flex" : "none" }} kind='line' label='Label' onChange={this.labelChange} value={this.state.label} />
 
-                                <div className='inputBox' style={{display: this.state.style === 'image' ? "inline-flex" : "none"}}>
+                                <div className='inputBox' style={{ display: this.state.style === 'image' ? "inline-flex" : "none" }}>
                                     <span className='imgName ellipsis'>{this.state.image.name !== '' ? this.state.image.name : 'Choose an image...'}</span>
 
                                     <span className='imgExt'>{this.state.image.ext !== '' ? this.state.image.ext : ''}</span>
@@ -312,7 +349,29 @@ class Configure extends React.Component<any, State> {
                             </div>
                             <div className='title'>Options</div>
                             <div className='section'>
-                                <Checkbox checked={this.state.clear} onChange={this.clearChange} style={{ flexGrow: 1 }}>Ignore settings and just clear all filters</Checkbox>
+                                <Checkbox checked={this.state.clear} onChange={this.clearChange} style={{ flexGrow: 1 }}>Ignore settings and just clear all filters.</Checkbox>
+                                <Checkbox checked={this.state.useSelectedWS} onChange={this.useSelectedWSChange} style={{ flexGrow: 1 }}>Only reset filters on selected worksheets.</Checkbox>
+
+
+                                <div className='listBox' style={{ display: this.state.useSelectedWS ? "flex" : "none" }}>
+                                    <div className='list scrolly'>
+                                        {this.state.worksheets.map((worksheet: any) =>
+                                            <Pill
+                                                kind='discrete'
+                                                schema={true}
+                                                selected={this.state.selectWSList.includes(worksheet.name)}
+                                                onMouseDown={this.updateWSSelection}
+                                                children={worksheet.name}
+                                                key={worksheet.name}
+                                                title={worksheet.name}
+                                                style={{ marginBottom: '4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block', lineHeight: '18px' }}
+                                                data-type={'worksheet'}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+
+
                             </div>
                             <div className='title'>Formatting</div>
                             <div className='section'>

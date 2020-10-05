@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/extension-filter-bookmarks/static/css/main.e2e6e025.chunk.css",
-    "main.js": "/extension-filter-bookmarks/static/js/main.edf57d9a.chunk.js",
-    "main.js.map": "/extension-filter-bookmarks/static/js/main.edf57d9a.chunk.js.map",
-    "runtime~main.js": "/extension-filter-bookmarks/static/js/runtime~main.2daab69c.js",
-    "runtime~main.js.map": "/extension-filter-bookmarks/static/js/runtime~main.2daab69c.js.map",
-    "static/js/2.c4b55b37.chunk.js": "/extension-filter-bookmarks/static/js/2.c4b55b37.chunk.js",
-    "static/js/2.c4b55b37.chunk.js.map": "/extension-filter-bookmarks/static/js/2.c4b55b37.chunk.js.map",
+    "main.css": "/extension-filter-bookmarks/static/css/main.1e08c017.chunk.css",
+    "main.js": "/extension-filter-bookmarks/static/js/main.60b19a0e.chunk.js",
+    "main.js.map": "/extension-filter-bookmarks/static/js/main.60b19a0e.chunk.js.map",
+    "runtime-main.js": "/extension-filter-bookmarks/static/js/runtime-main.482f167a.js",
+    "runtime-main.js.map": "/extension-filter-bookmarks/static/js/runtime-main.482f167a.js.map",
+    "static/js/2.4831f535.chunk.js": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js",
+    "static/js/2.4831f535.chunk.js.map": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js.map",
     "index.html": "/extension-filter-bookmarks/index.html",
-    "precache-manifest.8642b648b6f468e67818b657c4586269.js": "/extension-filter-bookmarks/precache-manifest.8642b648b6f468e67818b657c4586269.js",
+    "precache-manifest.0a199f31383ba9ce2bffee7ffa4d800e.js": "/extension-filter-bookmarks/precache-manifest.0a199f31383ba9ce2bffee7ffa4d800e.js",
     "service-worker.js": "/extension-filter-bookmarks/service-worker.js",
-    "static/css/main.e2e6e025.chunk.css.map": "/extension-filter-bookmarks/static/css/main.e2e6e025.chunk.css.map"
-  }
+    "static/css/main.1e08c017.chunk.css.map": "/extension-filter-bookmarks/static/css/main.1e08c017.chunk.css.map",
+    "static/js/2.4831f535.chunk.js.LICENSE.txt": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.482f167a.js",
+    "static/js/2.4831f535.chunk.js",
+    "static/css/main.1e08c017.chunk.css",
+    "static/js/main.60b19a0e.chunk.js"
+  ]
 }
