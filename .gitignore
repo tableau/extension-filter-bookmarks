@@ -12,6 +12,7 @@
 # production
 /build
 /old_builds
+/sandboxed/old_builds
 
 # misc
 .DS_Store

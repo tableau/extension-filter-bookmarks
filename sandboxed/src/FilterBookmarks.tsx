@@ -7,14 +7,14 @@ declare global {
 }
 
 interface Image {
-	name: string;
+    name: string;
     ext: string;
     data: string;
 }
 
 const defaultImage = {
     name: 'default',
-    ext:'.png',
+    ext: '.png',
     data: 'iVBORw0KGgoAAAANSUhEUgAAAD4AAAAaCAYAAADv/O9kAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH5AMbFhQgjNJxJQAAAPFJREFUWIXtlC8LwlAUR3/+QWEDwTAwiYgIWzKsrwkW04LNYDLbBe1+BIPtZYtV+4JpYYgMk7Bg2kBBNK1NTd47eO98gXMP791bWIT7l59EkAlLM1CULRoA/CRCkXsILlS4bKhw2VDh/8fGqutgQCf8Cu2LlwyMTReibZNqs+D56tUWhOli3eyw6AHmHdf1HoQ5xLxO787BcavAargQZh9TQmsOwlNqcAh3v0xm+sgD/nWL5Y3Wyhoex0dMLicWN0/4PcTo7LGoU2jDnxE2wQE7Umk2hOEeZgGd7Rc5uuq0qHDZUOGyIW+4pRncM5BjaQbeyHkrIkfBCTEAAAAASUVORK5CYII='
 }
 
@@ -28,6 +28,8 @@ interface State {
     label: string,
     style: string,
     text: string,
+    useSelectedWS: boolean,
+    selectWSList: string[]
 }
 
 // Switches base URL based on where extension is being hosted
@@ -49,10 +51,12 @@ class FilterBookmarks extends React.Component<any, State> {
         clear: false,
         configured: false,
         filters: [],
-        image: {name: '', ext:'', data: ''},
+        image: { name: '', ext: '', data: '' },
         label: 'Revert Filters',
         style: 'text',
         text: '#ffffff',
+        useSelectedWS: false,
+        selectWSList: []
     };
 
     // Clears all filters on a dashboard
@@ -78,23 +82,25 @@ class FilterBookmarks extends React.Component<any, State> {
             const filters = JSON.parse(settings.filters);
             for (const filter of filters) {
                 if (filter.skip === false) {
-                    switch (filter.filterType) {
-                        case 'range':
-                            let filterOptions = {};
-                            if (filter.nullOption === 'all-values') {
-                                filterOptions = { nullOption: filter.nullOption };
-                            } else if (filter.dataType === 'date') {
-                                filterOptions = { min: new Date(filter.min), max: new Date(filter.max) };
-                            } else {
-                                filterOptions = { min: filter.min, max: filter.max };
-                            }
-                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions).catch(console.log);
-                            break;
-                        case 'categorical':
-                            dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode }).catch(console.log);
-                            break;
-                        default:
-                            continue;
+                    if (!this.state.useSelectedWS || this.state.selectWSList.includes(filter.worksheetName)) {
+                        switch (filter.filterType) {
+                            case 'range':
+                                let filterOptions = {};
+                                if (filter.nullOption === 'all-values') {
+                                    filterOptions = { nullOption: filter.nullOption };
+                                } else if (filter.dataType === 'date') {
+                                    filterOptions = { min: new Date(filter.min), max: new Date(filter.max) };
+                                } else {
+                                    filterOptions = { min: filter.min, max: filter.max };
+                                }
+                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions).catch(console.log);
+                                break;
+                            case 'categorical':
+                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode }).catch(console.log);
+                                break;
+                            default:
+                                continue;
+                        }
                     }
                 }
             }
@@ -105,7 +111,7 @@ class FilterBookmarks extends React.Component<any, State> {
     public configure() {
         const popupUrl = `${baseURL}/config.html`;
         const payload = '';
-        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 520, width: 295 }).catch((error: any) => {
+        window.tableau.extensions.ui.displayDialogAsync(popupUrl, payload, { height: 540, width: 300 }).catch((error: any) => {
             switch (error.errorCode) {
                 case window.tableau.ErrorCodes.DialogClosedByUser:
                     console.log('Dialog was closed by user.');
@@ -128,6 +134,8 @@ class FilterBookmarks extends React.Component<any, State> {
             style: settings.style || 'text',
             image,
             text: settings.text,
+            useSelectedWS: settings.useSelectedWS === 'true',
+            selectWSList: (settings.selectWSList && JSON.parse(settings.selectWSList)) || []
         });
     }
 
@@ -148,6 +156,8 @@ class FilterBookmarks extends React.Component<any, State> {
                 window.tableau.extensions.settings.set('image', JSON.stringify(this.state.image));
                 window.tableau.extensions.settings.set('style', this.state.style);
                 window.tableau.extensions.settings.set('text', this.state.text);
+                window.tableau.extensions.settings.set('useSelectedWS', this.state.useSelectedWS);
+                window.tableau.extensions.settings.set('selectWSList', JSON.stringify(this.state.selectWSList));
                 window.tableau.extensions.settings.saveAsync().then(() => {
                     this.configure();
                 });
@@ -171,7 +181,7 @@ class FilterBookmarks extends React.Component<any, State> {
 
         const textButton = <button className='button' onClick={this.applyFilters} style={{ backgroundColor: color, color: this.state.text }}>{this.state.label}</button>;
 
-        const imageButton = <img src={this.state.image.data !== '' ? `data:image/png;base64, ${this.state.image.data}` : `data:image/png;base64, ${defaultImage.data}`} style={{cursor: 'pointer', maxWidth: '100%', objectFit: 'contain'}} onClick={this.applyFilters} alt='Filter' />;
+        const imageButton = <img src={this.state.image.data !== '' ? `data:image/png;base64, ${this.state.image.data}` : `data:image/png;base64, ${defaultImage.data}`} style={{ cursor: 'pointer', maxWidth: '100%', objectFit: 'contain' }} onClick={this.applyFilters} alt='Filter' />;
 
         return (
             <div className='outer' style={{ backgroundColor: this.state.bg, display: this.state.configured ? 'flex' : 'none' }}>
