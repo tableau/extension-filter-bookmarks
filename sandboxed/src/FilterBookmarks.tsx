@@ -89,14 +89,14 @@ class FilterBookmarks extends React.Component<any, State> {
                                 if (filter.nullOption === 'all-values') {
                                     filterOptions = { nullOption: filter.nullOption };
                                 } else if (filter.dataType === 'date') {
-                                    filterOptions = { min: new Date(filter.min), max: new Date(filter.max) };
+                                    filterOptions = { min: filter.min ? new Date(filter.min) : null, max: filter.max ? new Date(filter.max) : null };
                                 } else {
                                     filterOptions = { min: filter.min, max: filter.max };
                                 }
-                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions).catch(console.log);
+                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyRangeFilterAsync(filter.fieldName, filterOptions).catch(() => console.log(`Failed to set range filter [${filter.fieldName}] to [${filterOptions}] on worksheet [${filter.worksheetName}]`));
                                 break;
                             case 'categorical':
-                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode }).catch(console.log);
+                                dashboard.worksheets.find((ws: any) => ws.name === filter.worksheetName).applyFilterAsync(filter.fieldName, filter.appliedValues, filter.updateType, { isExcludeMode: filter.isExcludeMode }).catch(() => console.log(`Failed to set categorical filter [${filter.fieldName}] to [${filter.appliedValues}] on worksheet [${filter.worksheetName}]`));
                                 break;
                             default:
                                 continue;

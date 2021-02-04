@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/extension-filter-bookmarks/static/css/main.1e08c017.chunk.css",
-    "main.js": "/extension-filter-bookmarks/static/js/main.60b19a0e.chunk.js",
-    "main.js.map": "/extension-filter-bookmarks/static/js/main.60b19a0e.chunk.js.map",
+    "main.js": "/extension-filter-bookmarks/static/js/main.f0e0ee7c.chunk.js",
+    "main.js.map": "/extension-filter-bookmarks/static/js/main.f0e0ee7c.chunk.js.map",
     "runtime-main.js": "/extension-filter-bookmarks/static/js/runtime-main.482f167a.js",
     "runtime-main.js.map": "/extension-filter-bookmarks/static/js/runtime-main.482f167a.js.map",
     "static/js/2.4831f535.chunk.js": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js",
     "static/js/2.4831f535.chunk.js.map": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js.map",
     "index.html": "/extension-filter-bookmarks/index.html",
-    "precache-manifest.0a199f31383ba9ce2bffee7ffa4d800e.js": "/extension-filter-bookmarks/precache-manifest.0a199f31383ba9ce2bffee7ffa4d800e.js",
+    "precache-manifest.ccb77ff2564aa6997649f4f25fd56214.js": "/extension-filter-bookmarks/precache-manifest.ccb77ff2564aa6997649f4f25fd56214.js",
     "service-worker.js": "/extension-filter-bookmarks/service-worker.js",
     "static/css/main.1e08c017.chunk.css.map": "/extension-filter-bookmarks/static/css/main.1e08c017.chunk.css.map",
     "static/js/2.4831f535.chunk.js.LICENSE.txt": "/extension-filter-bookmarks/static/js/2.4831f535.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.482f167a.js",
     "static/js/2.4831f535.chunk.js",
     "static/css/main.1e08c017.chunk.css",
-    "static/js/main.60b19a0e.chunk.js"
+    "static/js/main.f0e0ee7c.chunk.js"
   ]
 }
