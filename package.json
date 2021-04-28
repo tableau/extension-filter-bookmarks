@@ -39,5 +39,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "ssri": "^6.0.2",
+    "is-svg": "^4.2.2",
+    "react-dev-utils": "^11.0.4",
+    "immer": "^8.0.1",
+    "node-notifier": "^8.0.1",
+    "object-path": "^0.11.5",
+    "node-forge": "^0.10.0"
   }
 }
