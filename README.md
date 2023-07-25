@@ -27,6 +27,6 @@ If you want to use a locally-built version of this extension or if you want to m
 6. Update the existing or create a new manifest file (.trex) to point to the URL where you are hosting the extension with `/#/bookmarks` at the end. For example: `http://localhost:8080/#/bookmarks`.
 
 ## Support
-Paid Tableau users can contact the Tableau Technical Support team for help.
+Tableau customers can contact the Tableau Support team for help.
 
-For any local build or code related questions, please post to the [Issues](https://github.com/tableau/extension-filter-bookmarks/issues) tab here for community level support.
+For any local build or code related questions, please post to the [Issues](https://github.com/tableau/extension-filter-bookmarks/issues) tab here for community support.
