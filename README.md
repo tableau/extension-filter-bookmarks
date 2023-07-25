@@ -3,17 +3,17 @@
 # Filter Bookmarks
 This extension enables you to add a button directly into your dashboard that resets to certain filter settings. Great for embedded dashboards that do not have the toolbar showing or for a more intuitive interface.
 
-## Installing the Extension
+## Using the Extension from Tableau Exchange (Recommended)
 See the Tableau Help topic [Use Dashboard Extensions](https://help.tableau.com/current/pro/desktop/en-us/dashboard_extensions.htm) for directions. When presented with the list of available Dashboard Extensions, search for Filter Bookmarks to find and install this one.
 
-## Using the Extension
+### Using the Extension
 1. Set your dashboard filters they way you want to be able to revert to.
 2. Open the configuration window and click "Save Settings".
 3. Optional: Customize your buttons label and colors.
 
 Note: You can add as many instances of this extension as you like!
 
-## Building for local use
+## Download the Extension Code to Develop Locally
 If you want to use a locally-built version of this extension or if you want to make any of your own changes, follow these steps:
 
 1. Make sure you have [Node.js](https://nodejs.org) and [Yarn](https://yarnpkg.com) installed. 
@@ -29,4 +29,4 @@ If you want to use a locally-built version of this extension or if you want to m
 ## Support
 Paid Tableau users can contact the Tableau Technical Support team for help.
 
-For any local build or code related questions, please post to the [Issues](https://github.com/tableau/extension-filter-bookmarks/issues) tab here.
+For any local build or code related questions, please post to the [Issues](https://github.com/tableau/extension-filter-bookmarks/issues) tab here for community level support.
