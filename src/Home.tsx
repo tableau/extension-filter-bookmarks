@@ -22,7 +22,7 @@ class Home extends React.Component<any, any> {
 							</ol>
 							<p><b>Note:</b> You can add as many instances of this extension as you like!</p>
 							<div className='gh'>
-							Get this extension and more in the <a href='https://extensiongallery.tableau.com/'>Extension Gallery</a>.
+							Get this extension and more in the <a href='https://exchange.tableau.com/'>Tableau Exchange</a>.
 								{/* <a href='https://github.com/tableau/extension-filter-bookmarks'>View on GitHub</a> */}
 							</div>
 						</div>
