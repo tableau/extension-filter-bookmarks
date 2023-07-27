@@ -1,17 +1,21 @@
+[![As-Is](https://img.shields.io/badge/Support%20Level-As--Is-e8762c.svg)](https://www.tableau.com/support-levels-it-and-developer-tools)
+
 # Filter Bookmarks
 This extension enables you to add a button directly into your dashboard that resets to certain filter settings. Great for embedded dashboards that do not have the toolbar showing or for a more intuitive interface.
 
-## How to use an Extension
-Download the Filter Bookmarks [manifest file](https://extensiongallery.tableau.com/products/29). Open Tableau Desktop 2018.2 or higher, drag in the "Extension" object to a dashboard. Click "My Extensions" and find the manifest file (.trex) you downloaded above.
+## Using the Extension from Tableau Exchange (Recommended)
+See the Tableau Help topic [Use Dashboard Extensions](https://help.tableau.com/current/pro/desktop/en-us/dashboard_extensions.htm) for directions. When presented with the list of available Dashboard Extensions, search for Filter Bookmarks to find and install this one.
 
-# Using the Extension
+### Using the Extension
 1. Set your dashboard filters they way you want to be able to revert to.
 2. Open the configuration window and click "Save Settings".
 3. Optional: Customize your buttons label and colors.
 
 Note: You can add as many instances of this extension as you like!
 
-## How to install for local use
+## Download the Extension Code to Develop Locally
+If you want to use a locally-built version of this extension or if you want to make any of your own changes, follow these steps:
+
 1. Make sure you have [Node.js](https://nodejs.org) and [Yarn](https://yarnpkg.com) installed. 
 2. Clone or download and unzip this repository. Open the command line to the `extension-filter-bookmarks-master` folder and run `yarn` to install the node modules.
 3. Edit the `homepage` in the `package.json` file to the server where you are going to host the extension. For example:
@@ -23,4 +27,6 @@ Note: You can add as many instances of this extension as you like!
 6. Update the existing or create a new manifest file (.trex) to point to the URL where you are hosting the extension with `/#/bookmarks` at the end. For example: `http://localhost:8080/#/bookmarks`.
 
 ## Support
-If you have questions about the extension or found a bug please open a new [issue](https://github.com/tableau/extension-filter-bookmarks/issues).
+Tableau customers can contact the Tableau Support team for help.
+
+For any local build or code related questions, please post to the [Issues](https://github.com/tableau/extension-filter-bookmarks/issues) tab here for community support.
